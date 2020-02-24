@@ -1,13 +1,13 @@
 <template>
   <section class="container">
     <div style="text-align: center;">
-
       <div class="block" style="padding: 50px">
         <el-image src="/1yRhwqQy7.png" style="width: 30%"></el-image>
       </div>
       <h1 class="check-in">チェックインする</h1>
       <el-button>キャンセル</el-button>
       <el-button type="primary">チェックイン</el-button>
+      <p class="check-in">{{ time }}</p>
     </div>
   </section>
 </template>
@@ -16,8 +16,16 @@
   export default {
     data() {
       return {
-        src: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg'
+        body: '',
+        time: null,
       }
+    },
+    async mounted() {
+      console.log(process.env.API_BASE_URL)
+      const response = await this.$axios.$get('/api/sample');
+      this.body = response.body;
+      this.time = response.time;
+      console.log(response.time)
     }
   }
 </script>
