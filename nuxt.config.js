@@ -3,6 +3,11 @@ require('dotenv').config()
 export default {
   mode: 'universal',
   srcDir: 'app',
+  router: {
+    middleware: [
+      'auth'
+    ]
+  },
   /*
   ** Headers of the page
   */
@@ -51,9 +56,13 @@ export default {
   ** See https://axios.nuxtjs.org/options
   */
   axios: {
-  //  APIサーバーの設定
-  //  baseURL: 'http://xxxxxxxxx'
+    proxy: true // Can be also an object with default options
   },
+
+  proxy: {
+    '/api': { target: process.env.API_URL || 'http://localhost:8888' },
+  },
+
   /*
   ** Build configuration
   */
