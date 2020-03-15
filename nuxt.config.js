@@ -36,7 +36,7 @@ export default {
   ** Plugins to load before mounting the App
   */
   plugins: [
-    '@/plugins/element-ui'
+    '@/plugins/element-ui', '~/plugins/axios', '~/plugins/moment'
   ],
   /*
   ** Nuxt.js dev-modules
@@ -60,7 +60,7 @@ export default {
   },
 
   proxy: {
-    '/api': { target: process.env.API_URL || 'http://localhost:8888' },
+    '/api': process.env.API_URL,
   },
 
   /*
