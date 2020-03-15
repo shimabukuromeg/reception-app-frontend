@@ -4,7 +4,7 @@
       <el-col :span="6">
         <el-card class="text-center" style="margin-right: 16px;">
           <div>
-            <img src="https://placehold.it/150x150"
+            <img src='/img/150x150.png'
                  style="width: 100%;margin-bottom: 16px;border-radius: 2px;"
                  alt=""
             />
