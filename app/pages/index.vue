@@ -21,6 +21,8 @@
       }
     },
     async mounted() {
+      console.log('-----------------')
+      console.log(process.env.API_URL);
       const response = await this.$axios.$get('/api/sample');
       this.body = response.body;
       this.time = response.time;

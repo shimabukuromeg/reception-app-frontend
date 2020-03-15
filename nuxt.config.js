@@ -60,8 +60,7 @@ export default {
   },
 
   proxy: {
-    // '/api': { target: process.env.API_URL || 'http://localhost:8888' },
-    '/api': { target: 'https://fierce-shelf-45538.herokuapp.com' },
+    '/api': { target: process.env.API_URL || 'http://localhost:8888' },
   },
 
   /*
