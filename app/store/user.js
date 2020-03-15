@@ -60,8 +60,8 @@ export const actions = {
     const credentials = { email: payload.email, password: payload.password }
     const response = await axios.post('/api/auth/login', credentials)
     dispatch('logout')
-    commit('setAccessToken', response.access_token)
-    commit('setCurrentUser', response.current_user)
+    commit('setAccessToken', response.data.access_token)
+    commit('setCurrentUser', response.data.current_user)
   },
   async logout ({ commit }) {
     commit('clearTokens')
@@ -73,7 +73,7 @@ export const actions = {
         throw error
       })
     dispatch('logout')
-    commit('setAccessToken', response.access_token)
-    commit('setCurrentUser', response.current_user)
+    commit('setAccessToken', response.data.access_token)
+    commit('setCurrentUser', response.data.current_user)
   },
 }
