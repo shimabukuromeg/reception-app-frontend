@@ -26,9 +26,10 @@
       console.log('-----------------')
       console.log(process.env.API_URL);
       const response = await axios.get('/api/sample');
-      this.body = response.body;
-      this.time = response.time;
-      console.log(response.time)
+      console.log(response.data)
+      this.body = response.data.body;
+      this.time = response.data.time;
+      console.log(response.data.time)
     }
   }
 </script>
