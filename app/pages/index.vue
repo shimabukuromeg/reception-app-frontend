@@ -11,7 +11,7 @@
       <el-dialog
         title="何をしていますか？"
         :visible.sync="centerDialogVisible"
-        width="30%"
+        width="80%"
         center>
 
         <div style="padding-top: 10px">
@@ -21,7 +21,7 @@
         </div>
 
         <span slot="footer" class="dialog-footer">
-          <el-button @click="centerDialogVisible = false">キャンセル</el-button>
+          <el-button @click="centerDialogVisible = false" style="margin-bottom: 5px">キャンセル</el-button>
           <el-button type="primary" @click="centerDialogVisible = false">チェックイン</el-button>
         </span>
       </el-dialog>
