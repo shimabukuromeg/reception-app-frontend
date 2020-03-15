@@ -56,13 +56,8 @@ export default {
   ** See https://axios.nuxtjs.org/options
   */
   axios: {
-    proxy: true // Can be also an object with default options
-  },
 
-  proxy: {
-    '/api': { target: process.env.API_URL || 'http://localhost:8888' },
   },
-
   /*
   ** Build configuration
   */
