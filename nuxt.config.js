@@ -60,7 +60,7 @@ export default {
   },
 
   proxy: {
-    '/api': process.env.API_URL,
+    '/api': { target: process.env.API_URL || 'http://localhost:8888' },
   },
 
   /*
