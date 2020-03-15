@@ -9,16 +9,17 @@
       <el-button type="primary" @click="centerDialogVisible = true">チェックイン</el-button>
 
       <el-dialog
-        title="チェックイン"
+        title="何をしていますか？"
         :visible.sync="centerDialogVisible"
         width="30%"
         center>
-        <el-input
-          type="textarea"
-          :rows="2"
-          placeholder="何をしていますか？"
-          v-model="textarea">
-        </el-input>
+
+        <div style="padding-top: 10px">
+          <el-checkbox-group v-model="checkboxGroup1">
+            <el-checkbox-button v-for="city in cities" :label="city" :key="city">{{city}}</el-checkbox-button>
+          </el-checkbox-group>
+        </div>
+
         <span slot="footer" class="dialog-footer">
           <el-button @click="centerDialogVisible = false">キャンセル</el-button>
           <el-button type="primary" @click="centerDialogVisible = false">チェックイン</el-button>
@@ -33,6 +34,8 @@
 <script>
   import axios from '~/plugins/axios'
 
+  const cityOptions = ['イベント', '勉強', '仕事', 'そのほか'];
+
   export default {
     data() {
       return {
@@ -40,6 +43,8 @@
         textarea: '',
         body: '',
         time: null,
+        checkboxGroup1: ['Shanghai'],
+        cities: cityOptions
       }
     },
     async mounted() {
