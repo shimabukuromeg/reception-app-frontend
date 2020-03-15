@@ -1,7 +1,7 @@
 <template>
   <div>
     <TheHeader />
-    <div class="wrapper">
+    <div class="wrapper" style="padding-top: 20px">
       <nuxt class="container" />
     </div>
   </div>
