@@ -23,10 +23,7 @@
       }
     },
     async mounted() {
-      console.log('-----------------')
-      console.log(process.env.API_URL);
       const response = await axios.get('/api/sample');
-      console.log(response.data)
       this.body = response.data.body;
       this.time = response.data.time;
       console.log(response.data.time)
