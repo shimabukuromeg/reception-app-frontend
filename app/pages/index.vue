@@ -5,8 +5,26 @@
         <el-image src="/1yRhwqQy7.png" style="width: 30%"></el-image>
       </div>
       <h1 class="check-in">チェックインする</h1>
-      <el-button>キャンセル</el-button>
-      <el-button type="primary">チェックイン</el-button>
+
+      <el-button type="primary" @click="centerDialogVisible = true">チェックイン</el-button>
+
+      <el-dialog
+        title="チェックイン"
+        :visible.sync="centerDialogVisible"
+        width="30%"
+        center>
+        <el-input
+          type="textarea"
+          :rows="2"
+          placeholder="何をしていますか？"
+          v-model="textarea">
+        </el-input>
+        <span slot="footer" class="dialog-footer">
+          <el-button @click="centerDialogVisible = false">キャンセル</el-button>
+          <el-button type="primary" @click="centerDialogVisible = false">チェックイン</el-button>
+        </span>
+      </el-dialog>
+
       <p class="check-in">{{ time }}</p>
     </div>
   </section>
@@ -18,6 +36,8 @@
   export default {
     data() {
       return {
+        centerDialogVisible: false,
+        textarea: '',
         body: '',
         time: null,
       }
