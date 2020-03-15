@@ -25,7 +25,7 @@
     async mounted() {
       console.log('-----------------')
       console.log(process.env.API_URL);
-      const response = await axios.$get('/api/sample');
+      const response = await axios.get('/api/sample');
       this.body = response.body;
       this.time = response.time;
       console.log(response.time)
