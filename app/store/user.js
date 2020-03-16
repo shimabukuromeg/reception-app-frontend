@@ -8,9 +8,13 @@ const parseJWToken = (token) => {
 export const state = () => ({
   accessToken: null,
   currentUser: null,
+  users: [],
 })
 
 export const getters = {
+  users: (state) => {
+    return state.users
+  },
   isAuthenticated: (state) => {
     return Boolean(state.accessToken)
   },
@@ -51,6 +55,9 @@ export const mutations = {
   clearCurrentUser (state) {
     state.currentUser = null
   },
+  addUser(state, {user}) {
+    state.users.push(user)
+  },
 }
 
 export const actions = {
@@ -74,4 +81,8 @@ export const actions = {
     commit('setAccessToken', response.access_token)
     commit('setCurrentUser', response.current_user)
   },
+  async fetchUser({commit}, {id}) {
+    const user = await this.$axios.$get(`/api/v1/users/${id}`)
+    commit('addUser', {user})
+  }
 }
