@@ -11,7 +11,7 @@
           </div>
           <h2>
             <b>
-              {{ currentUser.name }}
+              {{ this.currentUser.name }}
             </b>
           </h2>
         </el-card>
@@ -19,7 +19,7 @@
       <el-col :span="18">
         <el-card>
           <div slot="header" class="clearfix">
-            <span>{{ currentUser.name }} さんのチェックイン</span>
+            <span>{{ this.currentUser.name }} さんのチェックイン</span>
           </div>
           <el-table
             :data="userPosts"
@@ -38,9 +38,12 @@
 </template>
 
 <script>
-  import {mapGetters} from "vuex";
+  import { mapGetters } from "vuex";
   export default {
     data (){
+      if (!this.$store.getters['user/isAuthenticated']) {
+        this.$router.push('/login');
+      }
       return {
         userPosts: [
           {
@@ -60,10 +63,10 @@
       }
     },
     computed: {
-      ...mapGetters('user', ['currentUser']),
+      ...mapGetters('user', ['currentUser', 'isAuthenticated']),
     },
     methods: {
-    }
+    },
   }
 </script>
 

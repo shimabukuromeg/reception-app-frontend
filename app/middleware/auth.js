@@ -7,8 +7,10 @@ export default async ({ req, store, redirect }) => {
   }
   const cookies = new Cookies(req.headers.cookie)
   const currentUser = cookies.get('currentUser')
-  if (currentUser && currentUser.id ){
-    store.commit('user/setCurrentUser', currentUser, { root: true })
+  const accessToken = cookies.get('accessToken')
+  if (accessToken && currentUser && currentUser.id ){
+    store.commit('user/setCurrentUser', currentUser)
+    store.commit('user/setAccessToken', accessToken)
   } else {
     redirect('/login')
   }
