@@ -12,6 +12,7 @@
       this.$store.dispatch('user/logout')
       const cookies = new Cookies()
       cookies.remove('currentUser')
+      cookies.remove('accessToken')
       this.$router.replace('/login')
     },
   }

@@ -47,7 +47,7 @@
       buttonText() {
         return this.isCreateMode ? '新規登録' : 'ログイン'
       },
-      ...mapGetters('user', ['currentUser'])
+      ...mapGetters('user', ['currentUser', 'accessToken'])
     },
     methods: {
       ...mapActions('user', ['signUp', 'login']),
@@ -64,6 +64,7 @@
               duration: 1000,
             })
             cookies.set('currentUser', JSON.stringify(this.currentUser))
+            cookies.set('accessToken', this.accessToken)
             await this.$router.push('/')
           } catch (e) {
             console.log(e)
@@ -84,7 +85,8 @@
               position: 'bottom-right',
               duration: 1000,
             })
-            cookies.set('currentUser', JSON.stringify(this.currentUser))
+            cookies.set('currentUser', this.currentUser)
+            cookies.set('accessToken', this.accessToken)
             await this.$router.push('/')
           } catch (e) {
             this.$notify({

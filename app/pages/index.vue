@@ -32,8 +32,6 @@
 </template>
 
 <script>
-  import axios from '~/plugins/axios'
-
   const cityOptions = ['イベント', '勉強', '仕事', 'そのほか'];
 
   export default {
@@ -48,7 +46,7 @@
       }
     },
     async mounted() {
-      const response = await axios.get('/api/sample');
+      const response = await this.$axios.get('/api/sample');
       this.body = response.data.body;
       this.time = response.data.time;
       console.log(response.data.time)
