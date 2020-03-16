@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-row v-if="true">
+    <el-row v-if="user">
       <el-col :span="6">
         <el-card class="text-center" style="margin-right: 16px;">
           <div>
@@ -11,7 +11,7 @@
           </div>
           <h2>
             <b>
-              {{ this.currentUser.name }}
+              {{ user.name }}
             </b>
           </h2>
         </el-card>
@@ -19,7 +19,7 @@
       <el-col :span="18">
         <el-card>
           <div slot="header" class="clearfix">
-            <span>{{ this.currentUser.name }} さんのチェックイン</span>
+            <span>{{ user.name }} さんのチェックイン</span>
           </div>
           <el-table
             :data="userPosts"
@@ -40,9 +40,15 @@
 <script>
   import { mapGetters } from "vuex";
   export default {
-    data (){
-      if (!this.$store.getters['user/isAuthenticated']) {
+    async asyncData({store, route, error}) {
+      if (!store.getters['user/isAuthenticated']) {
         this.$router.push('/login');
+      }
+      const {id} = route.params
+      try {
+        await store.dispatch('user/fetchUser', {id})
+      } catch (e) {
+        error({statusCode: 404})
       }
       return {
         userPosts: [
@@ -63,7 +69,12 @@
       }
     },
     computed: {
-      ...mapGetters('user', ['currentUser', 'isAuthenticated']),
+      user(){
+        const user = this.users.find(({ id }) => id == this.$route.params.id)
+        if(!user) return null
+        return user
+      },
+      ...mapGetters('user', ['currentUser', 'isAuthenticated', 'users']),
     },
     methods: {
     },
