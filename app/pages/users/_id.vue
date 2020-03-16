@@ -38,7 +38,6 @@
 </template>
 
 <script>
-  import moment from '~/plugins/moment'
   import {mapGetters} from "vuex";
   export default {
     data (){
