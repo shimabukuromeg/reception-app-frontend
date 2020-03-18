@@ -15,14 +15,14 @@
         center>
 
         <div style="padding-top: 10px">
-          <el-checkbox-group v-model="checkboxGroup1">
-            <el-checkbox-button v-for="city in cities" :label="city" :key="city">{{city}}</el-checkbox-button>
+          <el-checkbox-group v-model="checkedCheckInCategories">
+            <el-checkbox-button v-for="checkInCategory in checkInCategories" :label="checkInCategory" :key="checkInCategory.id">{{checkInCategory.name}}</el-checkbox-button>
           </el-checkbox-group>
         </div>
 
         <span slot="footer" class="dialog-footer">
           <el-button @click="centerDialogVisible = false" style="margin-bottom: 5px">キャンセル</el-button>
-          <el-button type="primary" @click="centerDialogVisible = false">チェックイン</el-button>
+          <el-button type="primary" @click="checkIn">チェックイン</el-button>
         </span>
       </el-dialog>
 
@@ -32,7 +32,26 @@
 </template>
 
 <script>
-  const cityOptions = ['イベント', '勉強', '仕事', 'そのほか'];
+  import { mapActions } from "vuex";
+
+  const checkInCategories = [
+    {
+      "id": 1,
+      "name": "イベント"
+    },
+    {
+      "id": 2,
+      "name": "勉強"
+    },
+    {
+      "id": 3,
+      "name": "仕事"
+    },
+    {
+      "id": 4,
+      "name": "そのほか"
+    },
+  ];
 
   export default {
     data() {
@@ -41,9 +60,36 @@
         textarea: '',
         body: '',
         time: null,
-        checkboxGroup1: ['Shanghai'],
-        cities: cityOptions
+        checkedCheckInCategories: [],
+        checkInCategories: checkInCategories,
       }
+    },
+    methods: {
+      async checkIn() {
+        try {
+          const checkedCheckInCategoryIds = {
+            "checkin_category_ids": this.checkedCheckInCategories.map((value) => value.id)
+          }
+          await this.checkInPost(checkedCheckInCategoryIds)
+          this.$notify({
+            type: 'success',
+            title: 'チェックイン完了',
+            message: 'チェックインしました',
+            position: 'bottom-right',
+            duration: 1000,
+          })
+          this.$router.push('/entries')
+
+        } catch (e) {
+          this.$notify.error({
+            title: 'チェックイン失敗',
+            message: 'チェックインに失敗しました',
+            position: 'botom-right',
+            duration: 1000
+          })
+        }
+      },
+      ...mapActions('checkins', ['checkInPost']),
     },
     async mounted() {
       const response = await this.$axios.get('/api/sample');

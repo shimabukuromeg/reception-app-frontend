@@ -68,7 +68,7 @@
             await this.$router.push('/')
           } catch (e) {
             console.log(e)
-            this.$notify({
+            this.$notify.error({
               title: 'アカウント作成失敗',
               message: 'すでに登録されてるか、不正なユーザーです',
               position: 'bottom-right',
@@ -89,7 +89,7 @@
             cookies.set('accessToken', this.accessToken)
             await this.$router.push('/')
           } catch (e) {
-            this.$notify({
+            this.$notify.error({
               title: 'ログイン失敗',
               message: '不正なユーザーです',
               position: 'bottom-right',
