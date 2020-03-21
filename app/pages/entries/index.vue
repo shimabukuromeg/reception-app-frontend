@@ -47,7 +47,14 @@
       }
     },
     async mounted() {
-      this.checkIns = await this.$axios.$get(`/api/v1/checkins`)
+      this.$nextTick(() => this.$nuxt.$loading.start())
+      try {
+        this.checkIns = await this.$axios.$get(`/api/v1/checkins`)
+      } catch (e) {
+        console.log(e.message)
+      } finally {
+        this.$nuxt.$loading.finish()
+      }
     }
   }
 </script>

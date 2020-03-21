@@ -72,11 +72,18 @@
     methods: {
     },
     async mounted() {
-      this.userCheckIns = await this.$axios.$get('/api/v1/checkins', {
-        params: {
-          user_id: this.$route.params.id
-        }
-      });
+      this.$nextTick(() => this.$nuxt.$loading.start())
+      try {
+        this.userCheckIns = await this.$axios.$get('/api/v1/checkins', {
+          params: {
+            user_id: this.$route.params.id
+          }
+        });
+      } catch (e) {
+        console.log(e.message)
+      } finally {
+        this.$nuxt.$loading.finish()
+      }1
     }
   }
 </script>
