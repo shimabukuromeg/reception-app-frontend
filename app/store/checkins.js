@@ -24,4 +24,7 @@ export const actions = {
   async checkInPost({commit}, payload) {
     await this.$axios.$post(`/api/v1/checkins`, payload)
   },
+  async retrieveCheckIns({commit}, payload) {
+    await this.$axios.$get(`/api/v1/checkins`, payload)
+  },
 }

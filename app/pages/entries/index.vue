@@ -6,7 +6,7 @@
       </div>
 
       <el-table
-        :data="showEntries"
+        :data="showCheckIns"
         style="width: 100%"
         class="table"
       >
@@ -16,7 +16,7 @@
           width="240">
         </el-table-column>
         <el-table-column
-          prop="user"
+          prop="user.name"
           label="利用者">
         </el-table-column>
       </el-table>
@@ -30,39 +30,24 @@
   export default {
     data (){
       return {
-        entries: [
-          {
-            user: "太郎A",
-            created_at: "2019/07/28 16:02:28"
-          },
-          {
-            user: "太郎B",
-            created_at: "2019/08/28 16:02:28"
-          },
-          {
-            user: "太郎C",
-            created_at: "2019/09/28 16:02:28"
-          },
-          {
-            user: "太郎D",
-            created_at: "2019/10/28 16:02:28"
-          },
-
-        ],
+        checkIns: [],
       }
     },
     computed: {
-      showEntries(){
-        return this.entries.map(entry => {
-          entry.created_at = moment(entry.created_at).format('YYYY/MM/DD HH:mm:ss')
-          return entry
+      showCheckIns(){
+        return this.checkIns.map(checkIn => {
+          checkIn.created_at = moment(checkIn.created_at).format('YYYY/MM/DD HH:mm:ss')
+          return checkIn
         })
       },
     },
     methods: {
       handleClick(post){
-        this.$router.push(`/entries/${entry.id}`)
+        this.$router.push(`/entries/${checkIn.id}`)
       }
+    },
+    async mounted() {
+      this.checkIns = await this.$axios.$get(`/api/v1/checkins`)
     }
   }
 </script>
