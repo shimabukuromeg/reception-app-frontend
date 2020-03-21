@@ -22,7 +22,7 @@
             <span>{{ user.name }} さんのチェックイン</span>
           </div>
           <el-table
-            :data="userPosts"
+            :data="showUserCheckIns"
             style="width: 100%"
             class="table"
           >
@@ -38,6 +38,7 @@
 </template>
 
 <script>
+  import moment from '~/plugins/moment'
   import { mapGetters } from "vuex";
   export default {
     async asyncData({store, route, error}) {
@@ -51,24 +52,16 @@
         error({statusCode: 404})
       }
       return {
-        userPosts: [
-          {
-            created_at: "2019/07/28 16:02:28"
-          },
-          {
-            created_at: "2019/08/28 16:02:28"
-          },
-          {
-            created_at: "2019/09/28 16:02:28"
-          },
-          {
-            created_at: "2019/10/28 16:02:28"
-          },
-
-        ],
+        userCheckIns: [],
       }
     },
     computed: {
+      showUserCheckIns(){
+        return this.userCheckIns.map(userCheckIn => {
+          userCheckIn.created_at = moment(userCheckIn.created_at).format('YYYY/MM/DD HH:mm:ss')
+          return userCheckIn
+        })
+      },
       user(){
         const user = this.users.find(({ id }) => id == this.$route.params.id)
         if(!user) return null
@@ -78,6 +71,13 @@
     },
     methods: {
     },
+    async mounted() {
+      this.userCheckIns = await this.$axios.$get('/api/v1/checkins', {
+        params: {
+          user_id: this.$route.params.id
+        }
+      });
+    }
   }
 </script>
 
